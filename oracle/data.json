@@ -1,0 +1,387 @@
+{
+ "astrology": {
+  "body": [
+   "astrology/body/ceres.jpg",
+   "astrology/body/chiron.jpg",
+   "astrology/body/juno.jpg",
+   "astrology/body/jupiter.jpg",
+   "astrology/body/mars.jpg",
+   "astrology/body/mercury.jpg",
+   "astrology/body/moon.jpg",
+   "astrology/body/neptune.jpg",
+   "astrology/body/north-node.jpg",
+   "astrology/body/pallas.jpg",
+   "astrology/body/pluto.jpg",
+   "astrology/body/saturn.jpg",
+   "astrology/body/south-node.jpg",
+   "astrology/body/sun.jpg",
+   "astrology/body/uranus.jpg",
+   "astrology/body/venus.jpg",
+   "astrology/body/vesta.jpg"
+  ],
+  "houses": [
+   "astrology/houses/01-first.jpg",
+   "astrology/houses/02-second.jpg",
+   "astrology/houses/03-third.jpg",
+   "astrology/houses/04-fourth.jpg",
+   "astrology/houses/05-fifth.jpg",
+   "astrology/houses/06-sixth.jpg",
+   "astrology/houses/07-seventh.jpg",
+   "astrology/houses/08-eighth.jpg",
+   "astrology/houses/09-ninth.jpg",
+   "astrology/houses/10-tenth.jpg",
+   "astrology/houses/11-eleventh.jpg",
+   "astrology/houses/12-twelfth.jpg",
+   "astrology/houses/ascendent.jpg",
+   "astrology/houses/descendent.jpg",
+   "astrology/houses/imum-coeli.jpg",
+   "astrology/houses/midheaven.jpg"
+  ],
+  "signs": [
+   "astrology/sign/01-aries.jpg",
+   "astrology/sign/02-taurus.jpg",
+   "astrology/sign/03-gemini.jpg",
+   "astrology/sign/04-cancer.jpg",
+   "astrology/sign/05-leo.jpg",
+   "astrology/sign/06-virgo.jpg",
+   "astrology/sign/07-libra.jpg",
+   "astrology/sign/08-scorpio.jpg",
+   "astrology/sign/09-sagittarius.jpg",
+   "astrology/sign/10-capricorn.jpg",
+   "astrology/sign/11-aquarius.jpg",
+   "astrology/sign/12-pisces.jpg"
+  ]
+ },
+ "crystals": [
+  {
+   "name": "agate",
+   "front": "crystals/front/agate-front.jpg",
+   "text": "crystals/text/agate-text.jpg"
+  },
+  {
+   "name": "amazonite",
+   "front": "crystals/front/amazonite-front.jpg",
+   "text": "crystals/text/amazonite-text.jpg"
+  },
+  {
+   "name": "amber",
+   "front": "crystals/front/amber-front.jpg",
+   "text": "crystals/text/amber-text.jpg"
+  },
+  {
+   "name": "ametrine",
+   "front": "crystals/front/ametrine-front.jpg",
+   "text": "crystals/text/ametrine-text.jpg"
+  },
+  {
+   "name": "apophyllite",
+   "front": "crystals/front/apophyllite-front.jpg",
+   "text": "crystals/text/apophyllite-text.jpg"
+  },
+  {
+   "name": "aquamarine",
+   "front": "crystals/front/aquamarine-front.jpg",
+   "text": "crystals/text/aquamarine-text.jpg"
+  },
+  {
+   "name": "astrophyllite",
+   "front": "crystals/front/astrophyllite-front.jpg",
+   "text": "crystals/text/astrophyllite-text.jpg"
+  },
+  {
+   "name": "aventurine",
+   "front": "crystals/front/aventurine-front.jpg",
+   "text": "crystals/text/aventurine-text.jpg"
+  },
+  {
+   "name": "azurite",
+   "front": "crystals/front/azurite-front.jpg",
+   "text": "crystals/text/azurite-text.jpg"
+  },
+  {
+   "name": "barite",
+   "front": "crystals/front/barite-front.jpg",
+   "text": "crystals/text/barite-text.jpg"
+  },
+  {
+   "name": "bismuth",
+   "front": "crystals/front/bismuth-front.jpg",
+   "text": "crystals/text/bismuth-text.jpg"
+  },
+  {
+   "name": "black-tourmaline",
+   "front": "crystals/front/black-tourmaline-front.jpg",
+   "text": "crystals/text/black-tourmaline-text.jpg"
+  },
+  {
+   "name": "bloodstone",
+   "front": "crystals/front/bloodstone-front.jpg",
+   "text": "crystals/text/bloodstone-text.jpg"
+  },
+  {
+   "name": "blue-calcite",
+   "front": "crystals/front/blue-calcite-front.jpg",
+   "text": "crystals/text/blue-calcite-text.jpg"
+  },
+  {
+   "name": "carnelian",
+   "front": "crystals/front/carnelian-front.jpg",
+   "text": "crystals/text/carnelian-text.jpg"
+  },
+  {
+   "name": "cavansite",
+   "front": "crystals/front/cavansite-front.jpg",
+   "text": "crystals/text/cavansite-text.jpg"
+  },
+  {
+   "name": "celestite",
+   "front": "crystals/front/celestite-front.jpg",
+   "text": "crystals/text/celestite-text.jpg"
+  },
+  {
+   "name": "chrysoprase",
+   "front": "crystals/front/chrysoprase-front.jpg",
+   "text": "crystals/text/chrysoprase-text.jpg"
+  },
+  {
+   "name": "citrine",
+   "front": "crystals/front/citrine-front.jpg",
+   "text": "crystals/text/citrine-text.jpg"
+  },
+  {
+   "name": "copper",
+   "front": "crystals/front/copper-front.jpg",
+   "text": "crystals/text/copper-text.jpg"
+  },
+  {
+   "name": "danburite",
+   "front": "crystals/front/danburite-front.jpg",
+   "text": "crystals/text/danburite-text.jpg"
+  },
+  {
+   "name": "diamond",
+   "front": "crystals/front/diamond-front.jpg",
+   "text": "crystals/text/diamond-text.jpg"
+  },
+  {
+   "name": "emerald",
+   "front": "crystals/front/emerald-front.jpg",
+   "text": "crystals/text/emerald-text.jpg"
+  },
+  {
+   "name": "epidote",
+   "front": "crystals/front/epidote-front.jpg",
+   "text": "crystals/text/epidote-text.jpg"
+  },
+  {
+   "name": "flourite",
+   "front": "crystals/front/flourite-front.jpg",
+   "text": "crystals/text/flourite-text.jpg"
+  },
+  {
+   "name": "garnet",
+   "front": "crystals/front/garnet-front.jpg",
+   "text": "crystals/text/garnet-text.jpg"
+  },
+  {
+   "name": "green-calcite",
+   "front": "crystals/front/green-calcite-front.jpg",
+   "text": "crystals/text/green-calcite-text.jpg"
+  },
+  {
+   "name": "hematite",
+   "front": "crystals/front/hematite-front.jpg",
+   "text": "crystals/text/hematite-text.jpg"
+  },
+  {
+   "name": "herkimer-diamond",
+   "front": "crystals/front/herkimer-diamond-front.jpg",
+   "text": "crystals/text/herkimer-diamond-text.jpg"
+  },
+  {
+   "name": "hiddenite",
+   "front": "crystals/front/hiddenite-front.jpg",
+   "text": "crystals/text/hiddenite-text.jpg"
+  },
+  {
+   "name": "honey-calcite",
+   "front": "crystals/front/honey-calcite-front.jpg",
+   "text": "crystals/text/honey-calcite-text.jpg"
+  },
+  {
+   "name": "howlite",
+   "front": "crystals/front/howlite-front.jpg",
+   "text": "crystals/text/howlite-text.jpg"
+  },
+  {
+   "name": "jet",
+   "front": "crystals/front/jet-front.jpg",
+   "text": "crystals/text/jet-text.jpg"
+  },
+  {
+   "name": "kunzite",
+   "front": "crystals/front/kunzite-front.jpg",
+   "text": "crystals/text/kunzite-text.jpg"
+  },
+  {
+   "name": "kyanite",
+   "front": "crystals/front/kyanite-front.jpg",
+   "text": "crystals/text/kyanite-text.jpg"
+  },
+  {
+   "name": "larimar",
+   "front": "crystals/front/larimar-front.jpg",
+   "text": "crystals/text/larimar-text.jpg"
+  },
+  {
+   "name": "lemurian-quartz",
+   "front": "crystals/front/lemurian-quartz-front.jpg",
+   "text": "crystals/text/lemurian-quartz-text.jpg"
+  },
+  {
+   "name": "lepidolite",
+   "front": "crystals/front/lepidolite-front.jpg",
+   "text": "crystals/text/lepidolite-text.jpg"
+  },
+  {
+   "name": "libyan-gold-tektite",
+   "front": "crystals/front/libyan-gold-tektite-front.jpg",
+   "text": "crystals/text/libyan-gold-tektite-text.jpg"
+  },
+  {
+   "name": "magnesite",
+   "front": "crystals/front/magnesite-front.jpg",
+   "text": "crystals/text/magnesite-text.jpg"
+  },
+  {
+   "name": "malachite",
+   "front": "crystals/front/malachite-front.jpg",
+   "text": "crystals/text/malachite-text.jpg"
+  },
+  {
+   "name": "meteorite",
+   "front": "crystals/front/meteorite-front.jpg",
+   "text": "crystals/text/meteorite-text.jpg"
+  },
+  {
+   "name": "moldavite",
+   "front": "crystals/front/moldavite-front.jpg",
+   "text": "crystals/text/moldavite-text.jpg"
+  },
+  {
+   "name": "muscovite",
+   "front": "crystals/front/muscovite-front.jpg",
+   "text": "crystals/text/muscovite-text.jpg"
+  },
+  {
+   "name": "obsidian",
+   "front": "crystals/front/obsidian-front.jpg",
+   "text": "crystals/text/obsidian-text.jpg"
+  },
+  {
+   "name": "opal",
+   "front": "crystals/front/opal-front.jpg",
+   "text": "crystals/text/opal-text.jpg"
+  },
+  {
+   "name": "orange-calcite",
+   "front": "crystals/front/orange-calcite-front.jpg",
+   "text": "crystals/text/orange-calcite-text.jpg"
+  },
+  {
+   "name": "peridot",
+   "front": "crystals/front/peridot-front.jpg",
+   "text": "crystals/text/peridot-text.jpg"
+  },
+  {
+   "name": "pyrite",
+   "front": "crystals/front/pyrite-front.jpg",
+   "text": "crystals/text/pyrite-text.jpg"
+  },
+  {
+   "name": "rhodochrosite",
+   "front": "crystals/front/rhodochrosite-front.jpg",
+   "text": "crystals/text/rhodochrosite-text.jpg"
+  },
+  {
+   "name": "ruby",
+   "front": "crystals/front/ruby-front.jpg",
+   "text": "crystals/text/ruby-text.jpg"
+  },
+  {
+   "name": "sapphire",
+   "front": "crystals/front/sapphire-front.jpg",
+   "text": "crystals/text/sapphire-text.jpg"
+  },
+  {
+   "name": "scocelite",
+   "front": "crystals/front/scocelite-front.jpg",
+   "text": "crystals/text/scolecite-text.jpg"
+  },
+  {
+   "name": "selenite",
+   "front": "crystals/front/selenite-front.jpg",
+   "text": "crystals/text/selenite-text.jpg"
+  },
+  {
+   "name": "shiva-lingam",
+   "front": "crystals/front/shiva-lingam-front.jpg",
+   "text": "crystals/text/shiva-lingam-text.jpg"
+  },
+  {
+   "name": "shungite",
+   "front": "crystals/front/shungite-front.jpg",
+   "text": "crystals/text/shungite-text.jpg"
+  },
+  {
+   "name": "smoky-quartz",
+   "front": "crystals/front/smoky-quartz-front.jpg",
+   "text": "crystals/text/smoky-quartz-text.jpg"
+  },
+  {
+   "name": "sodalite",
+   "front": "crystals/front/sodalite-front.jpg",
+   "text": "crystals/text/sodalite-text.jpg"
+  },
+  {
+   "name": "sugilite",
+   "front": "crystals/front/sugilite-front.jpg",
+   "text": "crystals/text/sugilite-text.jpg"
+  },
+  {
+   "name": "sunstone",
+   "front": "crystals/front/sunstone-front.jpg",
+   "text": "crystals/text/sunstone-text.jpg"
+  },
+  {
+   "name": "tektite",
+   "front": "crystals/front/tektite-front.jpg",
+   "text": "crystals/text/tektite-text.jpg"
+  },
+  {
+   "name": "tibetan-black-quartz",
+   "front": "crystals/front/tibetan-black-quartz-front.jpg",
+   "text": "crystals/text/tibetan-black-quartz-text.jpg"
+  },
+  {
+   "name": "topaz",
+   "front": "crystals/front/topaz-front.jpg",
+   "text": "crystals/text/topaz-text.jpg"
+  },
+  {
+   "name": "tourmalined-quartz",
+   "front": "crystals/front/tourmalined-quartz-front.jpg",
+   "text": "crystals/text/tourmalined-quartz-text.jpg"
+  },
+  {
+   "name": "turquoise",
+   "front": "crystals/front/turquoise-front.jpg",
+   "text": "crystals/text/turquoise-text.jpg"
+  },
+  {
+   "name": "vanadinite",
+   "front": "crystals/front/vanadinite-front.jpg",
+   "text": "crystals/text/vanadinite-text.jpg"
+  }
+ ]
+}

@@ -2,25 +2,21 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Networked A-Frame — Stable Audio Setup</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <title>AstroBeats Hangout — Group Oracle</title>
 
   <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
 
-
   <!-- Socket.IO -->
   <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
-
   <!-- Networked-Aframe -->
-<script src="https://unpkg.com/networked-aframe@^0.14.0/dist/networked-aframe.min.js"></script>
-
+  <script src="https://unpkg.com/networked-aframe@^0.14.0/dist/networked-aframe.min.js"></script>
 
   <!-- Extras -->
   <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
-  <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
-
 
   <script>
     // Ensure avatar schema exists before NAF initializes
@@ -40,34 +36,71 @@
     };
   </script>
 
-
   <style>
-    body { margin: 0; }
+    body { margin: 0; overflow: hidden; }
+    .hud {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      color: #f0e9ff;
+      font-family: Arial, sans-serif;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+      pointer-events: none;
+      user-select: none;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+    .hud .room { opacity: 0.85; font-size: 12px; }
+    .hud .status { font-size: 12px; opacity: 0.85; }
     .actions {
       position: fixed;
-      bottom: 24px;
+      bottom: 22px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 100;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .button {
-      padding: 12px 24px;
-      font-size: 16px;
-      background: #4CAF50;
+      padding: 10px 20px;
+      font-size: 15px;
       color: white;
-      border: none;
-      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.5);
+      background: rgba(30,20,50,0.75);
+      border-radius: 999px;
       cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(120,90,220,0.4); }
+    .button.primary { background: linear-gradient(135deg, #b85cc7, #7a4cd8); border-color: #fff; }
+    #spread-badge {
+      position: fixed;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      background: rgba(20,12,35,0.85);
+      color: #e9d8ff;
+      border: 1px solid rgba(190,160,255,0.4);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      text-align: center;
+      max-width: 86vw;
+      display: none;
+      backdrop-filter: blur(4px);
     }
   </style>
 </head>
 
-
 <body>
 
-
 <a-scene
-  physics="gravity: 0"
   networked-scene="
     room: basic-audio;
     debug: true;
@@ -76,8 +109,7 @@
     audio: true;
   ">
 
-
-  <!-- Background music (manual start after click) "assets/Wax Doctor - Offshore Drift.mp3" -->
+  <!-- Background music (manual start after click) -->
   <a-sound
     id="bg-music"
     src="assets/miss-you.mp3"
@@ -85,13 +117,12 @@
     position="0 0 -88">
   </a-sound>
 
-
-  <!-- Scene -->
+  <!-- Distant scene object -->
   <a-entity position="-25 0 -60">
     <a-octahedron color="#FF926B" radius="8"></a-octahedron>
   </a-entity>
 
-
+  <!-- Ground -->
   <a-entity position="0 0 40">
     <a-box repeat="400 400"
            src="assets/grass.jpg"
@@ -99,28 +130,95 @@
     </a-box>
   </a-entity>
 
-
   <a-sky src="#sky"></a-sky>
-
 
   <a-entity position="0 .5 -55">
     <a-entity gltf-model="url(assets/Luxury_House.glb)"></a-entity>
   </a-entity>
 
-
- <a-entity position="-13 2.5 -50">
-  <a-entity 
-    rotation="90 0 0"
-    gltf-model="url(assets/video_game.glb)"
-    animation="property: rotation; to: 90 360 0; loop: true; dur: 1800; easing: linear">
+  <a-entity position="-13 2.5 -50">
+    <a-entity
+      rotation="90 0 0"
+      gltf-model="url(assets/video_game.glb)"
+      animation="property: rotation; to: 90 360 0; loop: true; dur: 1800; easing: linear">
+    </a-entity>
   </a-entity>
-</a-entity>
 
+  <!-- ============ GROUP ORACLE ============ -->
+  <a-entity id="oracle" position="0 0 -12">
+    <a-cylinder id="altar" radius="3.4" height="1.3" position="0 0.65 0"
+                material="color:#3a2f45; metalness:0.1; roughness:0.6"></a-cylinder>
+    <a-cylinder radius="3.4" height="0.12" position="0 1.4 0"
+                material="color:#544370; metalness:0.15; roughness:0.5" segments-height="1"></a-cylinder>
+    <a-cylinder radius="0.9" height="0.06" position="0 1.49 0"
+                material="color:#8d6ef0; emissive:#5b3ec0; emissiveIntensity:0.25">
+      <a-torus radius="0.9" radius-tubular="0.02" rotation="-90 0 0"
+               material="color:#c9aaff; emissive:#8a6bff; emissiveIntensity:0.6"></a-torus>
+    </a-cylinder>
+
+    <a-entity light="type:point; intensity:0.7; distance:14; color:#ffd9a0" position="0 2.9 0"></a-entity>
+
+    <!-- astrological body -->
+    <a-entity class="oracle-card" data-key="body" position="-3.15 1.45 0">
+      <a-entity class="card-pivot"
+                animation__reveal="property: rotation; from: -24 0 0; to: 156 0 0; dur: 650; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: 156 0 0; to: -24 0 0; dur: 650; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+        <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 0.012"></a-plane>
+        <a-plane class="face-art" material="src: oracle/astrology/back.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
+      </a-entity>
+      <a-text class="card-label" value="Body" position="0 -0.05 0" align="center"
+              color="#cbb8ff" width="2"></a-text>
+    </a-entity>
+
+    <!-- zodiac sign -->
+    <a-entity class="oracle-card" data-key="sign" position="-1.05 1.45 0">
+      <a-entity class="card-pivot"
+                animation__reveal="property: rotation; from: -24 0 0; to: 156 0 0; dur: 650; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: 156 0 0; to: -24 0 0; dur: 650; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+        <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 0.012"></a-plane>
+        <a-plane class="face-art" material="src: oracle/astrology/back.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
+      </a-entity>
+      <a-text class="card-label" value="Sign" position="0 -0.05 0" align="center"
+              color="#cbb8ff" width="2"></a-text>
+    </a-entity>
+
+    <!-- house -->
+    <a-entity class="oracle-card" data-key="house" position="1.05 1.45 0">
+      <a-entity class="card-pivot"
+                animation__reveal="property: rotation; from: -24 0 0; to: 156 0 0; dur: 650; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: 156 0 0; to: -24 0 0; dur: 650; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+        <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 0.012"></a-plane>
+        <a-plane class="face-art" material="src: oracle/astrology/back.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
+      </a-entity>
+      <a-text class="card-label" value="House" position="0 -0.05 0" align="center"
+              color="#cbb8ff" width="2"></a-text>
+    </a-entity>
+
+    <!-- crystal -->
+    <a-entity class="oracle-card" data-key="crystal" position="3.15 1.45 0">
+      <a-entity class="card-pivot"
+                animation__reveal="property: rotation; from: -24 0 0; to: 156 0 0; dur: 650; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: 156 0 0; to: -24 0 0; dur: 650; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+        <a-plane class="face-back" material="src: oracle/crystals/front/agate-front.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 0.012"></a-plane>
+        <a-plane class="face-art" material="src: oracle/crystals/text/agate-text.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
+      </a-entity>
+      <a-text class="card-label" value="Crystal" position="0 -0.05 0" align="center"
+              color="#cbb8ff" width="2"></a-text>
+    </a-entity>
+  </a-entity>
+  <!-- ============ /GROUP ORACLE ============ -->
 
   <!-- Assets -->
   <a-assets>
     <img id="sky" src="assets/sunset.jpg" />
-
 
     <template id="avatar-template">
       <a-entity class="avatar">
@@ -137,7 +235,6 @@
     </template>
   </a-assets>
 
-
   <!-- Player -->
   <a-entity id="rig">
     <a-entity
@@ -148,40 +245,337 @@
       wasd-controls
       look-controls>
       <a-sphere class="head" visible="false" random-color></a-sphere>
+      <a-cursor raycaster="objects: .oracle-card;" fuse="false"></a-cursor>
     </a-entity>
   </a-entity>
 
-
   <a-entity light="type:ambient; intensity:0.5"></a-entity>
-
-
-  <a-entity
-    websurface="url:https://freestylekingapp.com/mobile; width:4; height:2;"
-    position="15.25 1.5 -4">
-  </a-entity>
-
 
 </a-scene>
 
+<!-- HUD -->
+<div class="hud">
+  <div>🌒 AstroBeats Hangout</div>
+  <div class="room" id="hud-room"></div>
+  <div class="status" id="hud-status">connecting…</div>
+</div>
+
+<div id="spread-badge"></div>
+
+<div class="actions">
+  <button class="button primary" id="shuffle-btn">🔮 Shuffle</button>
+  <button class="button" id="reveal-btn">Reveal All</button>
+  <button class="button" id="conceal-btn">Hide All</button>
+</div>
 
 <script>
+(function(){
+  'use strict';
+
+  // ---------- assets data ----------
+  const KEYS = ['body', 'sign', 'house', 'crystal'];
+  let oracleData = null;
+
+  // ---------- shared state ----------
+  const ORACLE_TYPE = 'oracle-state';
+  let oracleState = { seed: null, flipped: [false, false, false, false], ts: 0 };
+  let drawn = null;
+  let networkingReady = false;
+  let seekers = 1;
+  let pendingState = null;
+
+  // ---------- deterministic PRNG ----------
+  function mulberry32(a){
+    return function(){
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function pick(r, arr){ return arr[Math.floor(r() * arr.length)]; }
+
+  function drawFromSeed(seed){
+    const r = mulberry32(seed);
+    return {
+      body:    pick(r, oracleData.astrology.body),
+      sign:    pick(r, oracleData.astrology.signs),
+      house:   pick(r, oracleData.astrology.houses),
+      crystal: pick(r, oracleData.crystals)
+    };
+  }
+
+  // ---------- card naming ----------
+  function toCardName(path){
+    if(!path) return '';
+    const file = path.split('/').pop().replace(/\.[^.]+$/, '');
+    return file
+      .split(/[-_]/)
+      .filter(p => p && !/^\d+$/.test(p))
+      .map(p => p.charAt(0).toUpperCase() + p.slice(1))
+      .join(' ');
+  }
+  function cardNames(){
+    if(!drawn) return [];
+    return KEYS.map((key) => {
+      if(key === 'crystal') return toCardName(drawn.crystal.name);
+      return toCardName(drawn[key]);
+    });
+  }
+
+  // ---------- rendering ----------
+  function coverAndArt(key){
+    const asset = (p) => 'oracle/' + p;
+    if(key === 'crystal'){
+      return { cover: asset(drawn.crystal.front), art: asset(drawn.crystal.text) };
+    }
+    return { cover: 'oracle/astrology/back.jpg', art: asset(drawn[key]) };
+  }
+
+  function applyDraw(){
+    KEYS.forEach((key) => {
+      const card = document.querySelector('.oracle-card[data-key="' + key + '"]');
+      if(!card) return;
+      const { cover, art } = coverAndArt(key);
+      card.querySelector('.face-back').setAttribute('material', 'src', cover);
+      card.querySelector('.face-art').setAttribute('material', 'src', art);
+    });
+  }
+
+  function renderOracle(){
+    if(!oracleData || !drawn) return;
+    applyDraw();
+    KEYS.forEach((key, i) => {
+      const card = document.querySelector('.oracle-card[data-key="' + key + '"]');
+      if(!card) return;
+      const pivot = card.querySelector('.card-pivot');
+      const flipped = !!(oracleState.flipped && oracleState.flipped[i]);
+      pivot.emit(flipped ? 'reveal' : 'conceal');
+    });
+    updateHud();
+    updateSpreadBadge();
+  }
+
+  // ---------- audio chimes ----------
+  let actx = null;
+  function ensureCtx(){
+    if(!actx){
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if(!Ctx) return null;
+      actx = new Ctx();
+    }
+    if(actx.state === 'suspended') actx.resume();
+    return actx;
+  }
+  function tone(freq, gain, dur, delay){
+    const c = ensureCtx();
+    if(!c) return;
+    const t = c.currentTime + (delay || 0);
+    const osc = c.createOscillator();
+    const g = c.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(gain, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    osc.connect(g); g.connect(c.destination);
+    osc.start(t); osc.stop(t + dur + 0.05);
+  }
+  function chime(kind){
+    if(kind === 'flip'){ tone(880, 0.07, 0.35); tone(1318, 0.05, 0.4, 0.06); }
+    else { tone(523.25, 0.06, 0.5); tone(659.25, 0.06, 0.5, 0.12); tone(783.99, 0.06, 0.6, 0.24); }
+  }
+
+  // ---------- actions ----------
+  function doShuffle(){
+    if(!oracleData) return;
+    oracleState = {
+      seed: Math.floor(Math.random() * 0xffffffff),
+      flipped: [false, false, false, false],
+      ts: Date.now()
+    };
+    drawn = drawFromSeed(oracleState.seed);
+    renderOracle();
+    publish();
+    chime('shuffle');
+  }
+
+  function clickCard(key){
+    if(!oracleData || !drawn) return;
+    const i = KEYS.indexOf(key);
+    if(i === -1) return;
+    const flipped = oracleState.flipped.slice();
+    flipped[i] = !flipped[i];
+    oracleState = { seed: oracleState.seed, flipped: flipped, ts: Date.now() };
+    renderOracle();
+    publish();
+    chime('flip');
+  }
+
+  function setAll(flipped){
+    if(!oracleData || !drawn) return;
+    oracleState = { seed: oracleState.seed, flipped: [flipped, flipped, flipped, flipped], ts: Date.now() };
+    renderOracle();
+    publish();
+    chime('flip');
+  }
+
+  function publish(){
+    if(!networkingReady || !NAF.clientId) return;
+    try {
+      NAF.connection.broadcastData(ORACLE_TYPE, JSON.stringify(oracleState));
+    } catch(err){ /* fine */ }
+  }
+
+  function pushStateTo(clientId){
+    if(!drawn || !networkingReady) return;
+    try {
+      NAF.connection.sendData(clientId, ORACLE_TYPE, JSON.stringify(oracleState));
+    } catch(err){ /* fine */ }
+  }
+
+  function tryParse(data){
+    if(typeof data === 'string'){
+      try { return JSON.parse(data); } catch(e){ return null; }
+    }
+    if(data && typeof data === 'object') return data;
+    return null;
+  }
+
+  function applyRemote(s){
+    if(!s || s.seed == null || !Array.isArray(s.flipped)) return;
+    if(!oracleData){ pendingState = s; return; }
+    if(s.ts <= oracleState.ts) return;
+    oracleState = {
+      seed: s.seed,
+      flipped: s.flipped.map(Boolean),
+      ts: s.ts || 1
+    };
+    drawn = drawFromSeed(oracleState.seed);
+    renderOracle();
+    updateHud();
+  }
+
+  // ---------- HUD ----------
+  function updateHud(){
+    const statusEl = document.getElementById('hud-status');
+    const seekText = seekers + (seekers === 1 ? ' seeker present' : ' seekers present');
+    if(!networkingReady){
+      statusEl.textContent = 'connecting…';
+      return;
+    }
+    statusEl.textContent = seekText + ' · ' + (NAF.clientId ? 'online' : 'offline');
+  }
+
+  function updateSpreadBadge(){
+    const el = document.getElementById('spread-badge');
+    if(!drawn || !oracleState.flipped.some(Boolean)){
+      el.style.display = 'none';
+      el.textContent = '';
+      return;
+    }
+    const names = cardNames();
+    const shown = names.filter((n, i) => oracleState.flipped[i]);
+    el.textContent = shown.join('   ·   ');
+    el.style.display = 'block';
+  }
+
+  // ---------- networking ----------
+  function initNetworking(){
+    if(networkingReady) return;
+    networkingReady = true;
+
+    NAF.connection.subscribeToDataChannel(ORACLE_TYPE, (clientId, type, data) => {
+      applyRemote(tryParse(data));
+    });
+
+    document.body.addEventListener('clientConnected', (e) => {
+      seekers++;
+      pushStateTo(e.detail.clientId);
+      updateHud();
+    });
+    document.body.addEventListener('clientDisconnected', () => {
+      seekers = Math.max(1, seekers - 1);
+      updateHud();
+    });
+
+    if(NAF.clientId){
+      updateHud();
+      setTimeout(() => { if(oracleState.seed == null) doShuffle(); }, 800);
+    } else {
+      document.body.addEventListener('connected', function connectedHandler(){
+        document.body.removeEventListener('connected', connectedHandler);
+        updateHud();
+        setTimeout(() => { if(oracleState.seed == null) doShuffle(); }, 800);
+      });
+    }
+  }
+
+  // ---------- wiring ----------
+  function boot(){
+    document.getElementById('hud-room').textContent =
+      'room: ' + (new URLSearchParams(location.search).get('room') || 'basic-audio');
+
+    fetch('oracle/data.json')
+      .then(r => r.json())
+      .then(jsonData => {
+        oracleData = jsonData;
+        if(pendingState){
+          const p = pendingState;
+          pendingState = null;
+          applyRemote(p);
+        } else {
+          renderOracle();
+        }
+      })
+      .catch(err => console.error('Failed to load oracle/data.json', err));
+
+    document.querySelector('.oracle-card[data-key="body"]')
+      .addEventListener('click', () => clickCard('body'));
+    document.querySelector('.oracle-card[data-key="sign"]')
+      .addEventListener('click', () => clickCard('sign'));
+    document.querySelector('.oracle-card[data-key="house"]')
+      .addEventListener('click', () => clickCard('house'));
+    document.querySelector('.oracle-card[data-key="crystal"]')
+      .addEventListener('click', () => clickCard('crystal'));
+
+    document.getElementById('shuffle-btn').addEventListener('click', () => {
+      ensureCtx();
+      doShuffle();
+    });
+    document.getElementById('reveal-btn').addEventListener('click', () => { ensureCtx(); setAll(true); });
+    document.getElementById('conceal-btn').addEventListener('click', () => { ensureCtx(); setAll(false); });
+
+    // Offline/fallback: draw locally if the network never connects.
+    setTimeout(() => { if(oracleData && oracleState.seed == null) doShuffle(); }, 8000);
+
+    // Network wiring — subscribe as soon as NAF is present.
+    (function waitForNAF(){
+      if(window.NAF && NAF.connection && NAF.connection.subscribeToDataChannel){
+        initNetworking();
+      } else {
+        setTimeout(waitForNAF, 200);
+      }
+    })();
+  }
+
   // Resume AudioContext + start background music on first click
   document.addEventListener('click', () => {
     const scene = document.querySelector('a-scene');
-    const ctx = scene.audioListener?.context;
-    if (ctx && ctx.state === 'suspended') ctx.resume();
-
+    const ctx = scene && scene.audioListener && scene.audioListener.context;
+    if(ctx && ctx.state === 'suspended') ctx.resume();
 
     const bg = document.querySelector('#bg-music');
-    if (bg) bg.components.sound.playSound();
-
-
-    console.log('🔊 Audio unlocked');
+    if(bg && bg.components.sound) bg.components.sound.playSound();
   }, { once: true });
 
-
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
 </script>
-
 
 </body>
 </html>
