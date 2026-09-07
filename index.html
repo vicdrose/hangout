@@ -18,7 +18,12 @@
   <!-- Extras -->
   <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
 
-  <script>
+<!-- Mobile virtual joystick (shown only on touch devices) -->
+<div id="joystick" class="joy">
+  <div id="joy-knob" class="joy-knob"></div>
+</div>
+
+<script>
     // Ensure avatar schema exists before NAF initializes
     NAF.schemas.getComponentsOriginal = NAF.schemas.getComponents;
     NAF.schemas.getComponents = (template) => {
@@ -61,6 +66,34 @@
       z-index: 100;
       display: none;
     }
+    .joy {
+      position: fixed;
+      bottom: 42px;
+      left: 42px;
+      width: 140px;
+      height: 140px;
+      z-index: 200;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.10);
+      border: 2px solid rgba(255,255,255,0.22);
+      display: none;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .joy-knob {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.50);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .joy.active { display: block; }
   </style>
 </head>
 
@@ -585,6 +618,74 @@
       }
     })();
   }
+
+  // ---------- mobile virtual joystick ----------
+  (function(){
+    // Only show on touch-primary devices without hover (phones/tablets), not laptops.
+    if(!window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+    const joy = document.getElementById('joystick');
+    const knob = document.getElementById('joy-knob');
+    if(!joy || !knob) return;
+    joy.classList.add('active');
+    const RADIUS = 46;
+    let sx = 0, sy = 0, active = false;
+
+    function setKnob(cx, cy){
+      let dx = cx - joy.clientWidth / 2;
+      let dy = cy - joy.clientHeight / 2;
+      const len = Math.hypot(dx, dy);
+      if(len > RADIUS){ dx = dx / len * RADIUS; dy = dy / len * RADIUS; }
+      sx = dx / RADIUS;
+      sy = dy / RADIUS;
+      knob.style.transform = 'translate(-50%, -50%) translate(' + dx + 'px, ' + dy + 'px)';
+    }
+    function release(){
+      active = false;
+      sx = 0; sy = 0;
+      knob.style.transform = 'translate(-50%, -50%)';
+    }
+
+    joy.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      active = true;
+      try{ joy.setPointerCapture(e.pointerId); }catch(err){}
+      const r = joy.getBoundingClientRect();
+      setKnob(e.clientX - r.left, e.clientY - r.top);
+    });
+    joy.addEventListener('pointermove', (e) => {
+      if(!active) return;
+      e.preventDefault();
+      const r = joy.getBoundingClientRect();
+      setKnob(e.clientX - r.left, e.clientY - r.top);
+    });
+    joy.addEventListener('pointerup', release);
+    joy.addEventListener('pointercancel', release);
+
+    const player = document.getElementById('player');
+    const fwd = new THREE.Vector3();
+    const right = new THREE.Vector3();
+    const move = new THREE.Vector3();
+    let last = performance.now();
+    const SPEED = 3.2;
+
+    function tick(now){
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      if(active && player && (sx !== 0 || sy !== 0)){
+        const cam = player.getObject3D('camera');
+        if(cam){
+          cam.getWorldDirection(fwd);
+          fwd.y = 0;
+          if(fwd.lengthSq() > 0.0001) fwd.normalize();
+          right.set(fwd.z, 0, -fwd.x);
+          move.set(0, 0, 0).addScaledVector(right, sx).addScaledVector(fwd, -sy);
+          player.object3D.position.addScaledVector(move, SPEED * dt * Math.min(1, Math.hypot(sx, sy)));
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
 
   // ---------- background playlist ----------
   const PLAYLIST = [
