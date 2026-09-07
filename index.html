@@ -134,8 +134,6 @@
         <a-plane class="face-art" material="src: oracle/crystals/text/agate-text.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
       </a-entity>
-      <a-text class="card-label" value="Crystal" position="0 1.95 0" align="center"
-              color="#cbb8ff" width="2"></a-text>
     </a-entity>
 
 
@@ -149,8 +147,6 @@
         <a-plane class="face-art" material="src: oracle/astrology/body/sun.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
       </a-entity>
-      <a-text class="card-label" value="Body" position="0 1.95 0" align="center"
-              color="#cbb8ff" width="2"></a-text>
     </a-entity>
 
 
@@ -164,8 +160,6 @@
         <a-plane class="face-art" material="src: oracle/astrology/sign/01-aries.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
       </a-entity>
-      <a-text class="card-label" value="Sign" position="0 1.95 0" align="center"
-              color="#cbb8ff" width="2"></a-text>
     </a-entity>
 
 
@@ -176,9 +170,18 @@
                 animation__conceal="property: rotation; from: 0 180 0; to: 0 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
         <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 0.012"></a-plane>
-        <a-plane class="face-art" material="src: oracle/astrology/houses/01-first.jpg; shader: flat"
+<a-plane class="face-art" material="src: oracle/astrology/houses/01-first.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
       </a-entity>
+      <a-entity id="spread-banner" position="0 3.35 0" visible="false">
+        <a-plane class="banner-border" width="6.4" height="1.1" position="0 0 0"
+                 material="color:#bfa0ff; transparent:true; opacity:0.5; shader: flat"></a-plane>
+        <a-plane class="banner-bg" width="6.2" height="0.9" position="0 0 0.02"
+                 material="color:#2a2a33; transparent:true; opacity:0.95; shader: flat"></a-plane>
+        <a-text class="banner-text" value="" position="0 0 0.06" align="center"
+                color="#ffffff" width="6"></a-text>
+      </a-entity>
+    </a-entity>
       <a-text class="card-label" value="House" position="0 1.95 0" align="center"
               color="#cbb8ff" width="2"></a-text>
     </a-entity>
@@ -244,10 +247,10 @@
       wasd-controls
       look-controls>
       <a-sphere class="head" visible="false" random-color></a-sphere>
-      <a-cursor raycaster="objects: .face-back, .face-art, .card-label, .btn-ring, .btn-face, .oracle-btn a-text;" fuse="false"></a-cursor>
+      <a-cursor raycaster="objects: .face-back, .face-art, .btn-ring, .btn-face, .oracle-btn a-text;" fuse="false"></a-cursor>
       <a-entity class="mouse-cursor"
                 cursor="rayOrigin: mouse; fuse: false"
-                raycaster="objects: .face-back, .face-art, .card-label, .btn-ring, .btn-face, .oracle-btn a-text; far: 200"></a-entity>
+                raycaster="objects: .face-back, .face-art, .btn-ring, .btn-face, .oracle-btn a-text; far: 200"></a-entity>
     </a-entity>
   </a-entity>
 
@@ -302,6 +305,24 @@
     };
   }
 
+  // ---------- card naming ----------
+  function toCardName(path){
+    if(!path) return '';
+    const file = path.split('/').pop().replace(/\.[^.]+$/, '');
+    return file
+      .split(/[-_]/)
+      .filter(p => p && !/^\d+$/.test(p))
+      .map(p => p.charAt(0).toUpperCase() + p.slice(1))
+      .join(' ');
+  }
+  function cardNames(){
+    if(!drawn) return [];
+    return KEYS.map((key) => {
+      if(key === 'crystal') return drawn.crystal.name ? toCardName(drawn.crystal.name) : toCardName(drawn.crystal.text);
+      return toCardName(drawn[key]);
+    });
+  }
+
   // ---------- rendering ----------
   function coverAndArt(key){
     const asset = (p) => 'oracle/' + p;
@@ -336,6 +357,23 @@
       if(prev[i] !== flipped) pivot.emit(flipped ? 'reveal' : 'conceal');
     });
     updateHud();
+    updateBanner();
+  }
+
+  function updateBanner(){
+    const banner = document.getElementById('spread-banner');
+    if(!banner) return;
+    if(!drawn || !(oracleState.flipped || []).some(Boolean)){
+      banner.setAttribute('visible', false);
+      return;
+    }
+    const names = cardNames();
+    const shown = names.filter((n, i) => oracleState.flipped[i]);
+    const text = banner.querySelector('.banner-text');
+    if(text && text.getAttribute('value') !== shown.join(' · ')){
+      text.setAttribute('value', shown.join(' · '));
+    }
+    banner.setAttribute('visible', true);
   }
 
   // ---------- audio chimes ----------
