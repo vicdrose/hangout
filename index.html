@@ -321,15 +321,19 @@
     });
   }
 
+  let renderedFlipped = [false, false, false, false];
+
   function renderOracle(){
     if(!oracleData || !drawn) return;
     applyDraw();
+    const prev = renderedFlipped;
+    renderedFlipped = (oracleState.flipped || [false, false, false, false]).slice();
     KEYS.forEach((key, i) => {
       const card = document.querySelector('.oracle-card[data-key="' + key + '"]');
       if(!card) return;
       const pivot = card.querySelector('.card-pivot');
-      const flipped = !!(oracleState.flipped && oracleState.flipped[i]);
-      pivot.emit(flipped ? 'reveal' : 'conceal');
+      const flipped = !!renderedFlipped[i];
+      if(prev[i] !== flipped) pivot.emit(flipped ? 'reveal' : 'conceal');
     });
     updateHud();
   }
@@ -382,10 +386,9 @@
     if(!oracleData || !drawn) return;
     const i = KEYS.indexOf(key);
     if(i === -1) return;
-    // Only one card is ever flipped up at a time. Clicking the already-revealed
-    // card hides it; clicking another reveals that one and hides the rest.
-    const wasUp = !!oracleState.flipped[i];
-    const flipped = KEYS.map((k, idx) => !wasUp && idx === i);
+    // Toggle only this card; other already-flipped cards stay as they are.
+    const flipped = oracleState.flipped.slice();
+    flipped[i] = !flipped[i];
     oracleState = { seed: oracleState.seed, flipped: flipped, ts: Date.now() };
     renderOracle();
     publish();
