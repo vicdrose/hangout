@@ -59,24 +59,8 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 100;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: none;
     }
-    .button {
-      padding: 10px 20px;
-      font-size: 15px;
-      color: white;
-      border: 1px solid rgba(255,255,255,0.5);
-      background: rgba(30,20,50,0.75);
-      border-radius: 999px;
-      cursor: pointer;
-      backdrop-filter: blur(4px);
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .button:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(120,90,220,0.4); }
-    .button.primary { background: linear-gradient(135deg, #b85cc7, #7a4cd8); border-color: #fff; }
     #spread-badge {
       position: fixed;
       top: 60px;
@@ -158,53 +142,11 @@
 
     <a-entity light="type:point; intensity:0.7; distance:14; color:#ffd9a0" position="0 2.9 0"></a-entity>
 
-    <!-- astrological body -->
-    <a-entity class="oracle-card" data-key="body" position="-3.15 1.45 0">
+    <!-- crystal (left) -->
+    <a-entity class="oracle-card" data-key="crystal" position="-3.15 1.45 0">
       <a-entity class="card-pivot"
-                animation__reveal="property: rotation; from: -24 0 0; to: 156 0 0; dur: 650; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
-                animation__conceal="property: rotation; from: 156 0 0; to: -24 0 0; dur: 650; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
-        <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
-                 width="1" height="1.44" position="0 0.72 0.012"></a-plane>
-        <a-plane class="face-art" material="src: oracle/astrology/back.jpg; shader: flat"
-                 width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
-      </a-entity>
-      <a-text class="card-label" value="Body" position="0 -0.05 0" align="center"
-              color="#cbb8ff" width="2"></a-text>
-    </a-entity>
-
-    <!-- zodiac sign -->
-    <a-entity class="oracle-card" data-key="sign" position="-1.05 1.45 0">
-      <a-entity class="card-pivot"
-                animation__reveal="property: rotation; from: -24 0 0; to: 156 0 0; dur: 650; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
-                animation__conceal="property: rotation; from: 156 0 0; to: -24 0 0; dur: 650; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
-        <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
-                 width="1" height="1.44" position="0 0.72 0.012"></a-plane>
-        <a-plane class="face-art" material="src: oracle/astrology/back.jpg; shader: flat"
-                 width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
-      </a-entity>
-      <a-text class="card-label" value="Sign" position="0 -0.05 0" align="center"
-              color="#cbb8ff" width="2"></a-text>
-    </a-entity>
-
-    <!-- house -->
-    <a-entity class="oracle-card" data-key="house" position="1.05 1.45 0">
-      <a-entity class="card-pivot"
-                animation__reveal="property: rotation; from: -24 0 0; to: 156 0 0; dur: 650; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
-                animation__conceal="property: rotation; from: 156 0 0; to: -24 0 0; dur: 650; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
-        <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
-                 width="1" height="1.44" position="0 0.72 0.012"></a-plane>
-        <a-plane class="face-art" material="src: oracle/astrology/back.jpg; shader: flat"
-                 width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
-      </a-entity>
-      <a-text class="card-label" value="House" position="0 -0.05 0" align="center"
-              color="#cbb8ff" width="2"></a-text>
-    </a-entity>
-
-    <!-- crystal -->
-    <a-entity class="oracle-card" data-key="crystal" position="3.15 1.45 0">
-      <a-entity class="card-pivot"
-                animation__reveal="property: rotation; from: -24 0 0; to: 156 0 0; dur: 650; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
-                animation__conceal="property: rotation; from: 156 0 0; to: -24 0 0; dur: 650; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+                animation__reveal="property: rotation; from: -24 0 0; to: -24 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: -24 180 0; to: -24 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
         <a-plane class="face-back" material="src: oracle/crystals/front/agate-front.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 0.012"></a-plane>
         <a-plane class="face-art" material="src: oracle/crystals/text/agate-text.jpg; shader: flat"
@@ -213,8 +155,83 @@
       <a-text class="card-label" value="Crystal" position="0 -0.05 0" align="center"
               color="#cbb8ff" width="2"></a-text>
     </a-entity>
+
+
+    <!-- astrological body -->
+    <a-entity class="oracle-card" data-key="body" position="-1.05 1.45 0">
+      <a-entity class="card-pivot"
+                animation__reveal="property: rotation; from: -24 0 0; to: -24 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: -24 180 0; to: -24 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+        <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 0.012"></a-plane>
+        <a-plane class="face-art" material="src: oracle/astrology/body/sun.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
+      </a-entity>
+      <a-text class="card-label" value="Body" position="0 -0.05 0" align="center"
+              color="#cbb8ff" width="2"></a-text>
+    </a-entity>
+
+
+    <!-- zodiac sign -->
+    <a-entity class="oracle-card" data-key="sign" position="1.05 1.45 0">
+      <a-entity class="card-pivot"
+                animation__reveal="property: rotation; from: -24 0 0; to: -24 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: -24 180 0; to: -24 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+        <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 0.012"></a-plane>
+        <a-plane class="face-art" material="src: oracle/astrology/sign/01-aries.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
+      </a-entity>
+      <a-text class="card-label" value="Sign" position="0 -0.05 0" align="center"
+              color="#cbb8ff" width="2"></a-text>
+    </a-entity>
+
+
+    <!-- house -->
+    <a-entity class="oracle-card" data-key="house" position="3.15 1.45 0">
+      <a-entity class="card-pivot"
+                animation__reveal="property: rotation; from: -24 0 0; to: -24 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: -24 180 0; to: -24 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+        <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 0.012"></a-plane>
+        <a-plane class="face-art" material="src: oracle/astrology/houses/01-first.jpg; shader: flat"
+                 width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
+      </a-entity>
+      <a-text class="card-label" value="House" position="0 -0.05 0" align="center"
+              color="#cbb8ff" width="2"></a-text>
+    </a-entity>
   </a-entity>
   <!-- ============ /GROUP ORACLE ============ -->
+
+  <!-- Floating oracle buttons -->
+  <a-entity id="oracle-buttons">
+    <a-entity class="oracle-btn" data-action="reveal" position="-3.2 2.9 -9.2"
+              animation__bob="property: position; from: -3.2 2.85 -9.2; to: -3.2 2.95 -9.2; dur: 2300; dir: alternate; loop: true; easing: easeInOutSine">
+      <a-ring radius-inner="0.95" radius-outer="1.1" rotation="-90 0 0"
+              material="color:#5b3ec0; transparent:true; opacity:0.35"></a-ring>
+      <a-plane width="1.7" height="0.55" material="color:#6d4cff; shader: flat" position="0 0 0.02">
+        <a-text value="Reveal All" align="center" width="1.9" position="0 0 0.03" color="#fff"></a-text>
+      </a-plane>
+    </a-entity>
+
+    <a-entity class="oracle-btn" data-action="shuffle" position="0 3.0 -9.6"
+              animation__bob="property: position; from: 0 2.95 -9.6; to: 0 3.05 -9.6; dur: 2600; dir: alternate; loop: true; easing: easeInOutSine">
+      <a-ring radius-inner="1.0" radius-outer="1.15" rotation="-90 0 0"
+              material="color:#b85cc7; transparent:true; opacity:0.4"></a-ring>
+      <a-plane width="1.9" height="0.6" material="color:#a04fe0; shader: flat" position="0 0 0.02">
+        <a-text value="Shuffle" align="center" width="2.1" position="0 0 0.03" color="#fff"></a-text>
+      </a-plane>
+    </a-entity>
+
+    <a-entity class="oracle-btn" data-action="hide" position="3.2 2.9 -9.2"
+              animation__bob="property: position; from: 3.2 2.85 -9.2; to: 3.2 2.95 -9.2; dur: 2500; dir: alternate; loop: true; easing: easeInOutSine">
+      <a-ring radius-inner="0.95" radius-outer="1.1" rotation="-90 0 0"
+              material="color:#5b3ec0; transparent:true; opacity:0.35"></a-ring>
+      <a-plane width="1.7" height="0.55" material="color:#6d4cff; shader: flat" position="0 0 0.02">
+        <a-text value="Hide All" align="center" width="1.9" position="0 0 0.03" color="#fff"></a-text>
+      </a-plane>
+    </a-entity>
+  </a-entity>
 
   <!-- Assets -->
   <a-assets>
@@ -245,7 +262,7 @@
       wasd-controls
       look-controls>
       <a-sphere class="head" visible="false" random-color></a-sphere>
-      <a-cursor raycaster="objects: .oracle-card;" fuse="false"></a-cursor>
+      <a-cursor raycaster="objects: .oracle-card, .oracle-btn;" fuse="false"></a-cursor>
     </a-entity>
   </a-entity>
 
@@ -262,18 +279,12 @@
 
 <div id="spread-badge"></div>
 
-<div class="actions">
-  <button class="button primary" id="shuffle-btn">🔮 Shuffle</button>
-  <button class="button" id="reveal-btn">Reveal All</button>
-  <button class="button" id="conceal-btn">Hide All</button>
-</div>
-
 <script>
 (function(){
   'use strict';
 
   // ---------- assets data ----------
-  const KEYS = ['body', 'sign', 'house', 'crystal'];
+  const KEYS = ['crystal', 'body', 'sign', 'house'];
   let oracleData = null;
 
   // ---------- shared state ----------
@@ -539,12 +550,21 @@
     document.querySelector('.oracle-card[data-key="crystal"]')
       .addEventListener('click', () => clickCard('crystal'));
 
-    document.getElementById('shuffle-btn').addEventListener('click', () => {
-      ensureCtx();
-      doShuffle();
+    document.querySelectorAll('.oracle-btn').forEach((btn) => {
+      btn.addEventListener('mouseenter', () => {
+        btn.setAttribute('scale', '1.08 1.08 1.08');
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.setAttribute('scale', '1 1 1');
+      });
+      btn.addEventListener('click', () => {
+        ensureCtx();
+        const action = btn.getAttribute('data-action');
+        if(action === 'shuffle') doShuffle();
+        else if(action === 'reveal') setAll(true);
+        else if(action === 'hide') setAll(false);
+      });
     });
-    document.getElementById('reveal-btn').addEventListener('click', () => { ensureCtx(); setAll(true); });
-    document.getElementById('conceal-btn').addEventListener('click', () => { ensureCtx(); setAll(false); });
 
     // Offline/fallback: draw locally if the network never connects.
     setTimeout(() => { if(oracleData && oracleState.seed == null) doShuffle(); }, 8000);
