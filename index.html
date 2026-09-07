@@ -61,24 +61,6 @@
       z-index: 100;
       display: none;
     }
-    #spread-badge {
-      position: fixed;
-      top: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      background: rgba(20,12,35,0.85);
-      color: #e9d8ff;
-      border: 1px solid rgba(190,160,255,0.4);
-      border-radius: 10px;
-      padding: 10px 18px;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      text-align: center;
-      max-width: 86vw;
-      display: none;
-      backdrop-filter: blur(4px);
-    }
   </style>
 </head>
 
@@ -145,14 +127,14 @@
     <!-- crystal (left) -->
     <a-entity class="oracle-card" data-key="crystal" position="-3.15 1.45 0">
       <a-entity class="card-pivot"
-                animation__reveal="property: rotation; from: -24 0 0; to: -24 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
-                animation__conceal="property: rotation; from: -24 180 0; to: -24 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+                animation__reveal="property: rotation; from: 0 0 0; to: 0 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: 0 180 0; to: 0 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
         <a-plane class="face-back" material="src: oracle/crystals/front/agate-front.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 0.012"></a-plane>
         <a-plane class="face-art" material="src: oracle/crystals/text/agate-text.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
       </a-entity>
-      <a-text class="card-label" value="Crystal" position="0 -0.05 0" align="center"
+      <a-text class="card-label" value="Crystal" position="0 1.95 0" align="center"
               color="#cbb8ff" width="2"></a-text>
     </a-entity>
 
@@ -160,14 +142,14 @@
     <!-- astrological body -->
     <a-entity class="oracle-card" data-key="body" position="-1.05 1.45 0">
       <a-entity class="card-pivot"
-                animation__reveal="property: rotation; from: -24 0 0; to: -24 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
-                animation__conceal="property: rotation; from: -24 180 0; to: -24 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+                animation__reveal="property: rotation; from: 0 0 0; to: 0 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: 0 180 0; to: 0 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
         <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 0.012"></a-plane>
         <a-plane class="face-art" material="src: oracle/astrology/body/sun.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
       </a-entity>
-      <a-text class="card-label" value="Body" position="0 -0.05 0" align="center"
+      <a-text class="card-label" value="Body" position="0 1.95 0" align="center"
               color="#cbb8ff" width="2"></a-text>
     </a-entity>
 
@@ -175,14 +157,14 @@
     <!-- zodiac sign -->
     <a-entity class="oracle-card" data-key="sign" position="1.05 1.45 0">
       <a-entity class="card-pivot"
-                animation__reveal="property: rotation; from: -24 0 0; to: -24 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
-                animation__conceal="property: rotation; from: -24 180 0; to: -24 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+                animation__reveal="property: rotation; from: 0 0 0; to: 0 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: 0 180 0; to: 0 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
         <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 0.012"></a-plane>
         <a-plane class="face-art" material="src: oracle/astrology/sign/01-aries.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
       </a-entity>
-      <a-text class="card-label" value="Sign" position="0 -0.05 0" align="center"
+      <a-text class="card-label" value="Sign" position="0 1.95 0" align="center"
               color="#cbb8ff" width="2"></a-text>
     </a-entity>
 
@@ -190,14 +172,14 @@
     <!-- house -->
     <a-entity class="oracle-card" data-key="house" position="3.15 1.45 0">
       <a-entity class="card-pivot"
-                animation__reveal="property: rotation; from: -24 0 0; to: -24 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
-                animation__conceal="property: rotation; from: -24 180 0; to: -24 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
+                animation__reveal="property: rotation; from: 0 0 0; to: 0 180 0; dur: 700; easing: easeInOutQuad; startEvents: reveal; autoplay: false"
+                animation__conceal="property: rotation; from: 0 180 0; to: 0 0 0; dur: 700; easing: easeInOutQuad; startEvents: conceal; autoplay: false">
         <a-plane class="face-back" material="src: oracle/astrology/back.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 0.012"></a-plane>
         <a-plane class="face-art" material="src: oracle/astrology/houses/01-first.jpg; shader: flat"
                  width="1" height="1.44" position="0 0.72 -0.012" rotation="0 180 0"></a-plane>
       </a-entity>
-      <a-text class="card-label" value="House" position="0 -0.05 0" align="center"
+      <a-text class="card-label" value="House" position="0 1.95 0" align="center"
               color="#cbb8ff" width="2"></a-text>
     </a-entity>
   </a-entity>
@@ -280,8 +262,6 @@
   <div class="status" id="hud-status">connecting…</div>
 </div>
 
-<div id="spread-badge"></div>
-
 <script>
 (function(){
   'use strict';
@@ -322,24 +302,6 @@
     };
   }
 
-  // ---------- card naming ----------
-  function toCardName(path){
-    if(!path) return '';
-    const file = path.split('/').pop().replace(/\.[^.]+$/, '');
-    return file
-      .split(/[-_]/)
-      .filter(p => p && !/^\d+$/.test(p))
-      .map(p => p.charAt(0).toUpperCase() + p.slice(1))
-      .join(' ');
-  }
-  function cardNames(){
-    if(!drawn) return [];
-    return KEYS.map((key) => {
-      if(key === 'crystal') return toCardName(drawn.crystal.name);
-      return toCardName(drawn[key]);
-    });
-  }
-
   // ---------- rendering ----------
   function coverAndArt(key){
     const asset = (p) => 'oracle/' + p;
@@ -370,7 +332,6 @@
       pivot.emit(flipped ? 'reveal' : 'conceal');
     });
     updateHud();
-    updateSpreadBadge();
   }
 
   // ---------- audio chimes ----------
@@ -421,8 +382,10 @@
     if(!oracleData || !drawn) return;
     const i = KEYS.indexOf(key);
     if(i === -1) return;
-    const flipped = oracleState.flipped.slice();
-    flipped[i] = !flipped[i];
+    // Only one card is ever flipped up at a time. Clicking the already-revealed
+    // card hides it; clicking another reveals that one and hides the rest.
+    const wasUp = !!oracleState.flipped[i];
+    const flipped = KEYS.map((k, idx) => !wasUp && idx === i);
     oracleState = { seed: oracleState.seed, flipped: flipped, ts: Date.now() };
     renderOracle();
     publish();
@@ -482,19 +445,6 @@
       return;
     }
     statusEl.textContent = seekText + ' · ' + (NAF.clientId ? 'online' : 'offline');
-  }
-
-  function updateSpreadBadge(){
-    const el = document.getElementById('spread-badge');
-    if(!drawn || !oracleState.flipped.some(Boolean)){
-      el.style.display = 'none';
-      el.textContent = '';
-      return;
-    }
-    const names = cardNames();
-    const shown = names.filter((n, i) => oracleState.flipped[i]);
-    el.textContent = shown.join('   ·   ');
-    el.style.display = 'block';
   }
 
   // ---------- networking ----------
