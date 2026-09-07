@@ -674,10 +674,13 @@
       if(active && player && (sx !== 0 || sy !== 0)){
         const cam = player.getObject3D('camera');
         if(cam){
+          cam.updateMatrixWorld(true);
           cam.getWorldDirection(fwd);
           fwd.y = 0;
           if(fwd.lengthSq() > 0.0001) fwd.normalize();
-          right.set(fwd.z, 0, -fwd.x);
+          right.setFromMatrixColumn(cam.matrixWorld, 0);
+          right.y = 0;
+          if(right.lengthSq() > 0.0001) right.normalize();
           move.set(0, 0, 0).addScaledVector(right, sx).addScaledVector(fwd, -sy);
           player.object3D.position.addScaledVector(move, SPEED * dt * Math.min(1, Math.hypot(sx, sy)));
         }
