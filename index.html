@@ -75,11 +75,10 @@
     audio: true;
   ">
 
-  <!-- Background music (manual start after click) -->
+  <!-- Background music (playlist, manual start after click) -->
   <a-sound
     id="bg-music"
     src="assets/miss-you.mp3"
-    loop="true"
     position="0 0 -88">
   </a-sound>
 
@@ -280,7 +279,20 @@
   let pendingState = null;
 
   // Test hook: read-only view of the shared state (used by automated checks).
-  window.__ORA = { getState: () => ({ seed: oracleState.seed, ts: oracleState.ts, flipped: oracleState.flipped.slice() }) };
+  window.__ORA = {
+    getState: () => ({ seed: oracleState.seed, ts: oracleState.ts, flipped: oracleState.flipped.slice() }),
+    getMusic: () => {
+      const bg = document.getElementById('bg-music');
+      const s = bg && bg.components.sound;
+      return {
+        track: trackIndex,
+        playlist: PLAYLIST.slice(),
+        loop: s ? s.data.loop : null,
+        loaded: s ? s.loaded : false,
+        isPlaying: s ? s.isPlaying : false
+      };
+    }
+  };
 
   // ---------- deterministic PRNG ----------
   function mulberry32(a){
@@ -574,14 +586,42 @@
     })();
   }
 
-  // Resume AudioContext + start background music on first click
+  // ---------- background playlist ----------
+  const PLAYLIST = [
+    'assets/miss-you.mp3',
+    'assets/Wax%20Doctor%20-%20Offshore%20Drift.mp3'
+  ];
+  let trackIndex = 0;
+  let musicStarted = false;
+
+  function bgMusicEl(){
+    return document.getElementById('bg-music');
+  }
+
+  function playTrackAt(i){
+    if(!PLAYLIST.length) return;
+    trackIndex = ((i % PLAYLIST.length) + PLAYLIST.length) % PLAYLIST.length;
+    const bg = bgMusicEl();
+    if(!bg || !bg.components.sound) return;
+    bg.setAttribute('sound', 'src', PLAYLIST[trackIndex]);
+    bg.components.sound.playSound();
+  }
+
+  function startMusic(){
+    if(musicStarted) return;
+    musicStarted = true;
+    const bg = bgMusicEl();
+    if(!bg) return;
+    bg.addEventListener('sound-ended', () => playTrackAt(trackIndex + 1));
+    playTrackAt(0);
+  }
+
+  // Resume AudioContext + start background playlist on first click
   document.addEventListener('click', () => {
     const scene = document.querySelector('a-scene');
     const ctx = scene && scene.audioListener && scene.audioListener.context;
     if(ctx && ctx.state === 'suspended') ctx.resume();
-
-    const bg = document.querySelector('#bg-music');
-    if(bg && bg.components.sound) bg.components.sound.playSound();
+    startMusic();
   }, { once: true });
 
   if(document.readyState === 'loading'){
