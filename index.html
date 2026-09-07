@@ -728,8 +728,8 @@
       lookLastX = e.clientX;
       lookLastY = e.clientY;
       if(Math.hypot(e.clientX - lookStartX, e.clientY - lookStartY) > 6) lookMoved = true;
-      yaw += dx * LOOK_SENS;
-      pitch = Math.max(-PITCH_MAX, Math.min(PITCH_MAX, pitch - dy * LOOK_SENS));
+      yaw -= dx * LOOK_SENS;
+      pitch = Math.max(-PITCH_MAX, Math.min(PITCH_MAX, pitch + dy * LOOK_SENS));
       updateLook();
       e.preventDefault();
     }, true);
